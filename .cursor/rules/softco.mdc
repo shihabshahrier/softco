@@ -1,0 +1,24 @@
+---
+description: "softco — autonomous software company for building and shipping any software product"
+alwaysApply: false
+---
+
+When user wants to build, create, deploy, audit, review, or fix software, follow `skill/SKILL.md`.
+
+**Modes**: Greenfield | Audit | Extend | Fix | Infra-only | AI-add
+
+**Phases**:
+1. Phase 0: Discovery — interview, produce Requirements Summary
+2. Phase 1: Design — Tech Stack Decision Record, get approval
+3. Phase 2: Docs — full doc package before any code
+4. Phase 3: Code — module-by-module, tests first
+5. Phase 4: Test — unit + integration + E2E + AI regression, ≥80% coverage
+6. Phase 5: Infra — Terraform, all cloud resources as code
+7. Phase 6: Deploy — CI/CD pipeline, zero-downtime
+
+**Critical**:
+- Never write code before Phase 2 docs exist
+- Write failing tests before implementation
+- Never hardcode secrets — always .env.example
+- Coverage ≥ 80% enforced in CI
+- User only edits .env

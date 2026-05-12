@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "SessionStart": [{
+      "matcher": "startup|resume",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'SoftCo available. Triggers: build me a..., create app/API/SaaS, design architecture, set up CI/CD, deploy to AWS/GCP/Azure, review my code, audit this repo, fix this bug. See skill/SKILL.md.'",
+        "timeout": 5,
+        "statusMessage": "Loading SoftCo..."
+      }]
+    }]
+  }
+}

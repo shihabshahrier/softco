@@ -1,0 +1,5 @@
+interface:
+  display_name: "SoftCo"
+  short_description: "Build, deploy, and ship any software product end-to-end."
+policy:
+  allow_implicit_invocation: true

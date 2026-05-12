@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "softco",
+  "description": "Autonomous software company skill for AI coding agents.",
+  "owner": {
+    "name": "shihabshahrier",
+    "url": "https://github.com/shihabshahrier"
+  },
+  "plugins": [{
+    "name": "softco",
+    "description": "Build, deploy, and ship any software product end-to-end — PM, architect, engineer, DevOps, QA, and tech writer in one skill.",
+    "source": "./",
+    "category": "developer-tools"
+  }]
+}

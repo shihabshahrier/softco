@@ -1,12 +1,12 @@
 # softco
 
-Autonomous software-company skill for Claude Code. User describes a product;
+Autonomous software-company skill for AI coding agents. User describes a product;
 SoftCo plans, documents, codes, tests, and deploys it. User only edits `.env`.
 
 ## What it is
 
-A Claude Code [skill](https://docs.claude.com/en/docs/claude-code/skills)
-that turns Claude into a complete software firm — PM, architect, senior
+An [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) skill
+that turns any supported agent into a complete software firm — PM, architect, senior
 engineer, DevOps, QA, security engineer, technical writer — operating under
 a strict phase order:
 
@@ -17,7 +17,67 @@ Discovery  Design    Docs      Code      Test      Infra     Deploy
 
 Documentation and tests come before code. Coverage ≥ 80% enforced. Secrets
 never committed. Every project ships with an `AGENT.md` that lets a fresh
-Claude session continue the work without questions.
+agent session continue the work without questions.
+
+## Agent support
+
+| Agent | Works | Install path |
+|-------|-------|-------------|
+| Claude Code | ✓ | `~/.claude/skills/softco` |
+| opencode (SST) | ✓ | `~/.claude/skills/softco` (shared) |
+| OpenAI Codex | ✓ | `~/.agents/skills/softco` |
+| Amp / Goose / Kiro | ✓ | `~/.agents/skills/softco` (shared) |
+| Gemini CLI | ✓ | `~/.gemini/antigravity/skills/softco` |
+| Cursor | ✓ | `.cursor/rules/softco.mdc` (included) |
+| Windsurf | ✓ | `.windsurf/rules/softco.md` (included) |
+| Cline | ✓ | `.clinerules/softco.md` (included) |
+| GitHub Copilot | ✓ | `.github/copilot-instructions.md` (included) |
+
+## Install
+
+```bash
+./install.sh
+```
+
+Symlinks `skill/` to all detected agent paths. Restart your agent session to load.
+
+Install for one agent only:
+
+```bash
+./install.sh --agent claude     # Claude Code + opencode
+./install.sh --agent codex      # Codex / Amp / Goose / Kiro
+./install.sh --agent gemini     # Gemini CLI
+./install.sh --agent opencode   # opencode explicit path
+./install.sh --agent openclaw   # OpenClaw
+```
+
+Uninstall from all:
+
+```bash
+./install.sh --uninstall
+```
+
+Copy files instead of symlinking (for sharing / distributing):
+
+```bash
+./install.sh --copy
+```
+
+## Manual install
+
+```bash
+# Claude Code
+mkdir -p ~/.claude/skills && ln -s "$(pwd)/skill" ~/.claude/skills/softco
+
+# Codex / Amp / Goose / Kiro
+mkdir -p ~/.agents/skills && ln -s "$(pwd)/skill" ~/.agents/skills/softco
+
+# Gemini CLI
+mkdir -p ~/.gemini/antigravity/skills && ln -s "$(pwd)/skill" ~/.gemini/antigravity/skills/softco
+
+# opencode
+mkdir -p ~/.config/opencode/skills && ln -s "$(pwd)/skill" ~/.config/opencode/skills/softco
+```
 
 ## Trigger phrases
 
@@ -52,10 +112,10 @@ The skill activates on requests like:
 ## Layout
 
 ```
-skill/
-├── SKILL.md                            # entry point loaded by Claude Code
+skill/                              # skill source (symlinked to agent paths)
+├── SKILL.md                        # entry point loaded by all agents
 ├── references/
-│   ├── 00-workflow.md                  # phase-by-phase workflow
+│   ├── 00-workflow.md              # phase-by-phase workflow
 │   ├── 01-frontend.md
 │   ├── 02-backend.md
 │   ├── 03-ai-integration.md
@@ -68,47 +128,35 @@ skill/
 │   ├── 10-prompt-engineering.md
 │   └── 11-doc-templates.md
 ├── scripts/
-│   ├── scaffold.sh                     # bootstrap a project skeleton
-│   ├── validate_env.py                 # check .env matches .env.example
-│   ├── gen_schema.py                   # SQLAlchemy → docs/DB_SCHEMA.md
-│   └── cost_estimate.py                # rough monthly cloud + LLM cost
+│   ├── scaffold.sh                 # bootstrap a project skeleton
+│   ├── validate_env.py             # check .env matches .env.example
+│   ├── gen_schema.py               # SQLAlchemy → docs/DB_SCHEMA.md
+│   └── cost_estimate.py            # rough monthly cloud + LLM cost
 └── assets/
-    ├── github-actions-templates/       # ci-{python,node,go}.yml, deploy-ecs, terraform-plan, release-please
-    ├── terraform-modules/              # network-aws, ecs-service-aws, rds-postgres-aws
-    └── docker-templates/               # Dockerfile.{fastapi,go,nextjs,nestjs}, .dockerignore
-```
+    ├── github-actions-templates/   # ci-{python,node,go}.yml, deploy-ecs, terraform-plan, release-please
+    ├── terraform-modules/          # network-aws, ecs-service-aws, rds-postgres-aws
+    └── docker-templates/           # Dockerfile.{fastapi,go,nextjs,nestjs}, .dockerignore
 
-## Install
-
-```bash
-./install.sh
-```
-
-The script symlinks `skill/` into `~/.claude/skills/softco`. Restart Claude
-Code (or open a new session) — the skill is then available.
-
-Uninstall:
-
-```bash
-./install.sh --uninstall
-```
-
-## Manual install
-
-```bash
-mkdir -p ~/.claude/skills
-ln -s "$(pwd)/skill" ~/.claude/skills/softco
+# Agent adapters (Cursor/Windsurf/Cline/Copilot/Codex read these directly)
+.cursor/rules/softco.mdc
+.windsurf/rules/softco.md
+.clinerules/softco.md
+.codex/hooks.json
+.github/copilot-instructions.md
+agents/openai.yaml
+AGENTS.md                           # Codex / Amp / Goose — @./skill/SKILL.md
+GEMINI.md                           # Gemini CLI — @./skill/SKILL.md
 ```
 
 ## Usage
 
-Inside any Claude Code session:
+Inside any supported agent session:
 
 ```
 > build me a small SaaS for tracking gym workouts, with AI workout suggestions
 ```
 
-Claude detects intent, loads SoftCo, and starts at Phase 0. From there:
+The agent detects intent, loads SoftCo, and starts at Phase 0. From there:
 answer the interview, approve the TDR, watch docs land, watch modules land
 test-first, and only ever edit `.env`.
 
