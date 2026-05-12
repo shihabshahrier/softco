@@ -5,6 +5,22 @@ Patterns identical for GitLab CI / CircleCI with translated syntax.
 
 ---
 
+## Contents
+
+- [Standard pipeline](#standard-pipeline)
+- [Reusable workflow — full template](#reusable-workflow--full-template)
+- [Cloud auth — OIDC](#cloud-auth--oidc-never-long-lived-keys)
+- [Branch protection](#branch-protection-required)
+- [CODEOWNERS](#codeowners)
+- [Release workflow](#release-workflow)
+- [Dependabot](#dependabot)
+- [PR previews — frontend](#pr-previews-frontend)
+- [Rollback](#rollback)
+- [Pre-commit hooks](#pre-commit-hooks-mirror-ci-locally)
+- [Never do](#never-do)
+
+---
+
 ## Standard pipeline
 
 ```

@@ -4,6 +4,19 @@ Patterns + scaffolds per backend stack. Load on backend tasks.
 
 ---
 
+## Contents
+
+- [Stack pick decision tree](#stack-pick-decision-tree)
+- [FastAPI scaffold](#fastapi-scaffold)
+- [Go + Gin scaffold](#go--gin-scaffold)
+- [NestJS scaffold](#nestjs-scaffold-when-node-is-mandated)
+- [REST conventions](#rest-conventions-every-stack)
+- [Background jobs](#background-jobs)
+- [Real-time](#real-time)
+- [Common pitfalls](#common-pitfalls)
+
+---
+
 ## Stack pick decision tree
 
 ```

@@ -4,6 +4,21 @@ Test-first. Coverage ≥ 80% enforced in CI. Patterns per stack.
 
 ---
 
+## Contents
+
+- [Pyramid](#pyramid)
+- [Python — pytest + httpx + testcontainers](#python--pytest--httpx--testcontainers)
+- [Node — vitest + supertest](#node--vitest--supertest)
+- [Go — table tests + httptest](#go--table-tests--httptest)
+- [E2E — Playwright](#e2e--playwright)
+- [Test data](#test-data)
+- [Snapshot testing](#snapshot-testing)
+- [Performance / load](#performance--load)
+- [Mutation testing](#mutation-testing-optional-high-value)
+- [What never to do](#what-never-to-do)
+
+---
+
 ## Pyramid
 
 ```

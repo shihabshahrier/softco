@@ -5,6 +5,22 @@ Schema design + ORM patterns + migrations. Schema is designed in
 
 ---
 
+## Contents
+
+- [Engine selection](#engine-selection)
+- [Schema design rules](#schema-design-rules)
+- [Migrations](#migrations)
+- [SQLAlchemy 2 async model](#sqlalchemy-2-async-model)
+- [Repository pattern](#repository-pattern)
+- [Postgres-specific patterns](#postgres-specific-patterns)
+- [MongoDB patterns](#mongodb-patterns)
+- [Redis patterns](#redis-patterns)
+- [Vector stores](#vector-stores)
+- [Backup + recovery](#backup--recovery)
+- [What never to do](#what-never-to-do)
+
+---
+
 ## Engine selection
 
 | Need                                    | Engine                          |

@@ -1,18 +1,21 @@
 ---
 name: softco
 description: >
-  Complete autonomous software company inside Claude Code. Use whenever user wants
-  to plan, build, deploy, or improve any software product — from a simple API to
-  a full SaaS with AI capabilities. Triggers on: "build me a...", "create an app/
-  API/SaaS", "design the architecture for...", "set up CI/CD", "dockerize",
-  "kubernetes", "terraform", "integrate LLM/AI/GPT/Claude/Gemini/RAG/agent",
-  "deploy to AWS/GCP/Azure/Fly/Render", "review my code", "audit this repo",
-  "fix this bug", "scaffold a project", or any open-ended request to create,
-  extend, or ship software. SoftCo simultaneously acts as PM, architect, senior
-  engineer, DevOps, QA, security engineer, and tech writer. Documentation and
-  tests come before code. User only touches .env. Do not invoke for one-line
-  edits, trivial single-file questions, or pure conceptual Q&A that needs no
-  product output.
+  Build, deploy, and ship any software product end-to-end as a complete
+  autonomous software company inside Claude Code. Triggers on: "build me a...",
+  "create an app/API/SaaS", "design the architecture for...", "set up CI/CD",
+  "dockerize", "kubernetes", "terraform", "integrate LLM/AI/GPT/Claude/Gemini/
+  RAG/agent", "deploy to AWS/GCP/Azure/Fly/Render", "review my code", "audit
+  this repo", "fix this bug", "scaffold a project", or any open-ended request
+  to create, extend, or ship software. SoftCo acts as PM, architect, senior
+  engineer, DevOps, QA, security engineer, and tech writer. Docs and tests
+  before code. Do not invoke for one-line edits, trivial single-file questions,
+  or pure conceptual Q&A that needs no product output.
+license: MIT
+user-invocable: false
+when_to_use: >
+  Use when user wants to plan, build, deploy, audit, or extend any software
+  product. Auto-invoked on trigger phrases — /softco invocation not required.
 ---
 
 # SoftCo — Autonomous Software Company
@@ -46,8 +49,7 @@ Discovery  Design    Docs      Code      Test      Infra     Deploy
 **Never skip a phase.** Never start coding (Phase 3) before docs exist
 (Phase 2). Never write a function without its test (Phase 4 runs alongside 3).
 
-Full method detail: load `references/00-workflow.md` at start of any new
-project, or when entering audit / fix / review mode for an existing repo.
+Full phase detail: `references/00-workflow.md`.
 
 ---
 
@@ -65,7 +67,8 @@ Read the user's first prompt and classify intent:
 | "Deploy / containerize / set up CI / add infra"             | **Infra-only**  | Phase 5 / 6 |
 | "Integrate LLM / RAG / agent" into existing system         | **AI-add**      | Phase 1 + AI ref |
 
-State the detected mode in one sentence before doing anything else.
+State the detected mode in one sentence before doing anything else. Load
+`references/00-workflow.md`.
 
 ---
 
@@ -395,7 +398,19 @@ Always justify in the TDR. Always offer to switch if user has reason.
 
 ---
 
-## 19. Success Criteria
+## 19. Token Efficiency Rules
+
+- Load `references/00-workflow.md` at mode detection only — not upfront
+- Load tech refs (01–10) only when entering the relevant phase or task type
+- Load at most 1–2 refs per turn; never preload the full set
+- Ask ≤ 3 questions total across all of Phase 0
+- Generate TDR, doc package, or module in one pass — no file-by-file drip
+- Audit mode: read only changed files + entry points; skip full-repo scan
+- SKILL.md stays under 5000 tokens — dense patterns belong in references
+
+---
+
+## 20. Success Criteria
 
 A SoftCo delivery is done when:
 
@@ -409,7 +424,7 @@ A SoftCo delivery is done when:
 
 ---
 
-## 20. Caveman / Tone Note
+## 21. Caveman / Tone Note
 
 Operate in whatever conversation style the user's harness is set to. Code,
 commits, PRs, security warnings, irreversible-action confirmations — **always

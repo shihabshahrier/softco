@@ -5,6 +5,31 @@ audit / auth / payment / compliance work.
 
 ---
 
+## Contents
+
+- [Threat model checklist](#threat-model-checklist-every-project)
+- [OWASP Top 10 defaults](#owasp-top-10-2021--defaults-that-block-each)
+- [Secrets management](#secrets-management)
+- [Authentication](#authentication)
+- [Authorization](#authorization)
+- [Input validation](#input-validation)
+- [SQL injection](#sql-injection)
+- [XSS](#xss)
+- [CSRF](#csrf)
+- [Rate limiting](#rate-limiting)
+- [CORS](#cors)
+- [Security headers](#security-headers-set-on-every-response)
+- [File uploads](#file-uploads)
+- [SSRF defence](#ssrf-defence)
+- [Supply chain](#supply-chain)
+- [Logging — what NOT to log](#logging--what-not-to-log)
+- [AI-specific risks](#ai-specific-risks)
+- [Incident response](#incident-response)
+- [Compliance quick-map](#compliance-quick-map)
+- [Never do](#never-do)
+
+---
+
 ## Threat model checklist (every project)
 
 Run this in Phase 1 and update each major change:

@@ -5,6 +5,22 @@ or when re-entering an existing one in audit / fix / extend mode.
 
 ---
 
+## Contents
+
+- [Phase 0 — Discovery](#phase-0--discovery)
+- [Phase 1 — Architecture & TDR](#phase-1--architecture--tdr)
+- [Phase 2 — Documentation First](#phase-2--documentation-first)
+- [Phase 3 — Module-by-Module Build](#phase-3--module-by-module-build)
+- [Phase 4 — Testing](#phase-4--testing-runs-alongside-phase-3)
+- [Phase 5 — Infrastructure](#phase-5--infrastructure)
+- [Phase 6 — CI/CD](#phase-6--cicd)
+- [Audit Mode](#audit-mode-existing-repo)
+- [Fix Mode](#fix-mode)
+- [Extend Mode](#extend-mode)
+- [Stop Conditions](#stop-conditions)
+
+---
+
 ## Phase 0 — Discovery
 
 **Goal**: produce a `Requirements Summary` the user signs off on.

@@ -6,6 +6,24 @@ is just stdout in dev).
 
 ---
 
+## Contents
+
+- [Stack defaults](#stack-defaults)
+- [Structured logging](#structured-logging)
+- [Metrics — Prometheus / OpenTelemetry](#metrics--prometheus--opentelemetry)
+- [Tracing — OpenTelemetry](#tracing--opentelemetry)
+- [Error tracking — Sentry](#error-tracking--sentry)
+- [LLM observability — Langfuse](#llm-observability--langfuse)
+- [Health endpoints](#health-endpoints)
+- [Dashboards — Grafana](#dashboards--grafana)
+- [Alerting](#alerting)
+- [SLOs](#slos)
+- [Cost observability](#cost-observability)
+- [Local dev](#local-dev)
+- [Never do](#never-do)
+
+---
+
 ## Stack defaults
 
 | Pillar          | Default                       | Alternatives                  |

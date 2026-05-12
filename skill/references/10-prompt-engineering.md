@@ -5,6 +5,27 @@ prompts as files, never inline strings. Always regression-test.
 
 ---
 
+## Contents
+
+- [Required prompt structure](#required-prompt-structure)
+- [Anchoring rules](#anchoring-rules)
+- [XML tags for multi-part prompts](#xml-tags-for-multi-part-prompts-anthropic--others)
+- [Output format strategies](#output-format-strategies)
+- [Multi-shot examples](#multi-shot-examples--when-to-add)
+- [Chain-of-thought / reasoning](#chain-of-thought--reasoning)
+- [Reflection / critic pass](#reflection--critic-pass)
+- [Prompt versioning + management](#prompt-versioning--management)
+- [Prompt regression suite](#prompt-regression-suite)
+- [Prompt injection defence](#prompt-injection-defence)
+- [Tool use design](#tool-use-design)
+- [RAG-specific prompt patterns](#rag-specific-prompt-patterns)
+- [Temperature / sampling defaults](#temperature--sampling-defaults)
+- [Adversarial test cases](#adversarial-test-cases-mandatory-per-prompt)
+- [Iteration workflow](#iteration-workflow)
+- [Never do](#never-do)
+
+---
+
 ## Required prompt structure
 
 Every system prompt has these sections, in this order, with these headings:

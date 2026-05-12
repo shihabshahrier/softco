@@ -4,6 +4,23 @@ Terraform-first. No click-ops. Every cloud resource is code in `infra/`.
 
 ---
 
+## Contents
+
+- [Layout](#layout)
+- [Backend + state](#backend--state)
+- [Module pattern](#module-pattern)
+- [Environment composition](#environment-composition)
+- [Secrets](#secrets)
+- [Cloud Run — GCP](#cloud-run-gcp-example)
+- [Kubernetes — when to use](#kubernetes--use-when-scale-warrants)
+- [Docker](#docker)
+- [docker-compose for local dev](#docker-compose-for-local-dev)
+- [Cost estimation](#cost-estimation)
+- [Disaster recovery](#disaster-recovery)
+- [Never do](#never-do)
+
+---
+
 ## Layout
 
 ```

@@ -5,6 +5,24 @@ task. Stack defaults in `SKILL.md §17`.
 
 ---
 
+## Contents
+
+- [Stack matrix](#stack-matrix)
+- [React + Vite scaffold](#react--vite-scaffold)
+- [Next.js 15 — App Router scaffold](#nextjs-15-app-router-scaffold)
+- [Data fetching — TanStack Query](#data-fetching--tanstack-query)
+- [Forms — RHF + Zod](#forms--rhf--zod)
+- [State — Zustand](#state--zustand)
+- [Auth — Clerk](#auth--clerk-default-for-new-apps)
+- [Streaming + Suspense](#streaming--suspense-rsc)
+- [Accessibility checklist](#accessibility-checklist-every-ui-deliverable)
+- [Performance budget](#performance-budget)
+- [What never to ship](#what-never-to-ship)
+- [Mobile — Expo](#mobile-expo-quick-notes)
+- [CI checks for frontend](#ci-checks-for-frontend)
+
+---
+
 ## Stack matrix
 
 | Need                  | Default                  | Alternative              |

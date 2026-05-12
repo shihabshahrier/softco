@@ -5,6 +5,25 @@ Pair with `10-prompt-engineering.md`.
 
 ---
 
+## Contents
+
+- [Provider matrix](#provider-matrix)
+- [Model routing strategy](#model-routing-strategy-defaults)
+- [Router abstraction — Python](#router-abstraction-python)
+- [Streaming pattern — SSE, FastAPI](#streaming-pattern-sse-fastapi)
+- [RAG architecture](#rag-architecture)
+- [Agentic loop](#agentic-loop-tool-use)
+- [Structured output](#structured-output)
+- [Multi-agent orchestration](#multi-agent-orchestration-langgraph-pattern)
+- [Memory](#memory)
+- [Cost controls](#cost-controls)
+- [Observability](#observability)
+- [Safety / guardrails](#safety--guardrails)
+- [Provider switch checklist](#provider-switch-checklist)
+- [What never to do](#what-never-to-do)
+
+---
+
 ## Provider matrix
 
 | Provider     | Best for                                  | Auth                  |
