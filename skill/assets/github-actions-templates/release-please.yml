@@ -1,0 +1,21 @@
+# Release automation via Conventional Commits.
+# release-please creates a PR that bumps version + writes CHANGELOG; merging
+# that PR tags the release, which triggers deploy-prod.
+name: release-please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: simple
+          package-name: ${{ github.event.repository.name }}
