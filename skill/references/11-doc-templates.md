@@ -5,6 +5,22 @@ language plain. Senior dev reads cold; no ambiguity.
 
 ---
 
+## Contents
+
+- [README.md](#readmemd)
+- [AGENT.md](#agentmd)
+- [ARCHITECTURE.md](#architecturemd)
+- [API.md](#apimd)
+- [DB_SCHEMA.md](#db_schemamd)
+- [ENV.md](#envmd)
+- [INFRA.md](#inframd)
+- [MODULES.md](#modulesmd)
+- [TESTING.md](#testingmd)
+- [CHANGELOG.md](#changelogmd)
+- [ADR template](#adr-template-docstdr-xxxx-slugmd)
+
+---
+
 ## README.md
 
 ```markdown

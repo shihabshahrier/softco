@@ -410,7 +410,22 @@ Always justify in the TDR. Always offer to switch if user has reason.
 
 ---
 
-## 20. Success Criteria
+## 20. Open-Weight Model Rules
+
+When running on smaller or open-weight models (not Opus/Sonnet):
+
+- Substitute ALL `<template placeholders>` in generated docs — never leave raw
+  angle-bracket instructions in final output
+- JSON output must be valid — no comments, no trailing commas
+- YAML output must be valid — correct indentation, quote special chars
+- Every generated SKILL.md or AGENT.md must be self-contained — no dangling
+  `@` includes that the target agent can't resolve
+- Stick to the phase order even if the model tries to skip ahead
+- If context window is tight, load at most 1 reference per turn
+
+---
+
+## 21. Success Criteria
 
 A SoftCo delivery is done when:
 
@@ -424,7 +439,7 @@ A SoftCo delivery is done when:
 
 ---
 
-## 21. Caveman / Tone Note
+## 22. Caveman / Tone Note
 
 Operate in whatever conversation style the user's harness is set to. Code,
 commits, PRs, security warnings, irreversible-action confirmations — **always
