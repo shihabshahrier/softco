@@ -1,47 +1,52 @@
-# softco
+# SoftCo — Autonomous AI Coding Agent & Software Company Skill
 
-Autonomous software-company skill for AI coding agents. User describes a product;
-SoftCo plans, documents, codes, tests, and deploys it. User only edits `.env`.
+[![GitHub stars](https://img.shields.io/github/stars/shihabshahrier/softco.svg)](https://github.com/shihabshahrier/softco/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Supported AI Agents](https://img.shields.io/badge/AI_Agents-Claude_Code_|_Cursor_|_Windsurf_|_Cline-blue.svg)](#agent-support)
 
-## What it is
+Turn any AI coding agent (Claude Code, Cursor, Windsurf, Cline) into a complete, autonomous software company. The user describes their product or software idea; **SoftCo** handles the entire lifecycle: planning, system design, documentation, test-first coding, DevOps containerization, continuous integration, and automated deployment. The user only ever needs to configure the `.env` file.
 
-An [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) skill
-that turns any supported agent into a complete software firm — PM, architect, senior
-engineer, DevOps, QA, security engineer, technical writer — operating under
-a strict phase order:
+## 🚀 What it is
+
+An **Agent Skill** (supporting [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills)) that transforms any supported large language model (LLM) agent or developer assistant into a fully-functional, autonomous software engineering firm. It simulates an entire development team: Product Manager, Software Architect, Senior Engineer, DevOps Engineer, QA Engineer, Security Expert, and Technical Writer. 
+
+The agent operates under a highly-disciplined, professional software development lifecycle (SDLC) phase order:
 
 ```
 Phase 0 → Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
 Discovery  Design    Docs      Code      Test      Infra     Deploy
 ```
 
-Documentation and tests come before code. Coverage ≥ 80% enforced. Secrets
-never committed. Every project ships with an `AGENT.md` that lets a fresh
-agent session continue the work without questions.
+Documentation and tests come before code. Test coverage of ≥ 80% is strictly enforced. Secrets are never committed to git. Every project ships with a standardized `AGENT.md` contract file that lets a fresh agent session continue the work seamlessly without questions.
 
-## Agent support
 
-| Agent | Works | Install path |
+## 🤖 Supported AI Coding Agents & Platforms
+
+SoftCo integrates natively as a custom skill, system prompt instruction, or custom rule system across all major AI coding assistants and agent environments:
+
+| Agent / Editor | Works | Install Path / Setup |
 |-------|-------|-------------|
-| Claude Code | ✓ | `~/.claude/skills/softco` |
-| opencode (SST) | ✓ | `~/.claude/skills/softco` (shared) |
-| OpenAI Codex | ✓ | `~/.agents/skills/softco` |
-| Amp / Goose / Kiro | ✓ | `~/.agents/skills/softco` (shared) |
-| Gemini CLI | ✓ | `~/.gemini/antigravity/skills/softco` |
-| Cursor | ✓ | `.cursor/rules/softco.mdc` (included) |
-| Windsurf | ✓ | `.windsurf/rules/softco.md` (included) |
-| Cline | ✓ | `.clinerules/softco.md` (included) |
-| GitHub Copilot | ✓ | `.github/copilot-instructions.md` (included) |
+| **Claude Code** | ✓ | `~/.claude/skills/softco` |
+| **opencode (SST)** | ✓ | `~/.claude/skills/softco` (shared) |
+| **OpenAI Codex** | ✓ | `~/.agents/skills/softco` |
+| **Amp / Goose / Kiro** | ✓ | `~/.agents/skills/softco` (shared) |
+| **Gemini CLI** | ✓ | `~/.gemini/antigravity/skills/softco` |
+| **Cursor** | ✓ | `.cursor/rules/softco.mdc` (included rules file) |
+| **Windsurf** | ✓ | `.windsurf/rules/softco.md` (included rules file) |
+| **Cline** | ✓ | `.clinerules/softco.md` (included custom rules) |
+| **GitHub Copilot** | ✓ | `.github/copilot-instructions.md` (included instructions) |
 
-## Install
+## ⚙️ Installation & Setup
+
+Easily install SoftCo across all detected AI agents on your local machine using the automated installer script:
 
 ```bash
 ./install.sh
 ```
 
-Symlinks `skill/` to all detected agent paths. Restart your agent session to load.
+This symlinks the `skill/` directory to all detected agent paths. Restart your agent session to load.
 
-Install for one agent only:
+### Install for one specific agent only:
 
 ```bash
 ./install.sh --agent claude     # Claude Code + opencode
@@ -51,138 +56,133 @@ Install for one agent only:
 ./install.sh --agent openclaw   # OpenClaw
 ```
 
-Uninstall from all:
+### Uninstall from all agents:
 
 ```bash
 ./install.sh --uninstall
 ```
 
-Copy files instead of symlinking (for sharing / distributing):
+### Copy files instead of symlinking (useful for distributing configurations):
 
 ```bash
 ./install.sh --copy
 ```
 
-## Manual install
+## 🛠️ Manual Installation
+
+If you prefer manual configuration, run the appropriate setup commands for your AI toolchain:
 
 ```bash
-# Claude Code
+# Claude Code Skill Setup
 mkdir -p ~/.claude/skills && ln -s "$(pwd)/skill" ~/.claude/skills/softco
 
-# Codex / Amp / Goose / Kiro
+# Codex / Amp / Goose / Kiro Setup
 mkdir -p ~/.agents/skills && ln -s "$(pwd)/skill" ~/.agents/skills/softco
 
-# Gemini CLI
+# Gemini CLI / Antigravity Setup
 mkdir -p ~/.gemini/antigravity/skills && ln -s "$(pwd)/skill" ~/.gemini/antigravity/skills/softco
 
-# opencode
+# opencode Custom Skill Setup
 mkdir -p ~/.config/opencode/skills && ln -s "$(pwd)/skill" ~/.config/opencode/skills/softco
 ```
 
-## Trigger phrases
+## 🎯 Trigger Phrases & Intent Detection
 
-The skill activates on requests like:
+SoftCo activates automatically within your agent workspace on natural language developer requests:
 
-- "build me a SaaS / app / API / CLI"
-- "design the architecture for ..."
-- "set up CI/CD / Docker / Kubernetes / Terraform"
-- "integrate Claude / GPT / Gemini / RAG / agent"
-- "deploy to AWS / GCP / Azure / Fly / Render"
-- "review / audit my repo"
-- "fix this bug"
+* **SaaS & API Greenfield Development**: `"build me a SaaS / web app / backend API / CLI tool"`
+* **Architecture Planning**: `"design the architecture and system flow for ..."`
+* **Infrastructure as Code (IaC) & DevOps**: `"set up CI/CD pipeline, Dockerfile, Kubernetes clusters, or Terraform modules"`
+* **LLM & AI Agent Integration**: `"integrate Claude, OpenAI GPT, Gemini, RAG workflows, or MCP tools"`
+* **Deployment & Orchestration**: `"deploy our application to AWS, GCP, Azure, Fly.io, or Render"`
+* **Code Auditing & Security Review**: `"review my repository or audit my code for production readiness"`
+* **Bug Fixing & Root-Cause Resolution**: `"fix this bug or resolve this specific runtime error"`
 
-## Capabilities
+## ⚡ Core Capabilities & Supported Stack
 
-- **Frontend**: React + Vite, Next.js, Vue, Svelte, React Native (Expo)
-- **Backend**: FastAPI, Go + Gin, NestJS, Express, Hono, Django, Flask
-- **AI**: Anthropic, OpenAI, Gemini, Bedrock, Vertex, Azure AI, Groq,
-  Together, Ollama; LangChain / LangGraph / CrewAI / Haystack / MCP; RAG +
-  agentic loops + structured output + prompt versioning
-- **Databases**: Postgres + pgvector (default), MySQL, MongoDB, DynamoDB,
-  Redis, Qdrant, Pinecone, Weaviate, Neo4j, OpenSearch
-- **Infra**: Terraform-first; AWS, GCP, Azure, DigitalOcean, Fly, Render;
-  Docker multi-stage; Kubernetes when justified
-- **CI/CD**: GitHub Actions standard; templates for Python / Node / Go;
-  OIDC auth; Trivy scan; release-please
-- **Observability**: OpenTelemetry, structlog/pino/slog, Prometheus +
-  Grafana, Sentry, Langfuse for LLM
-- **Security**: OWASP defaults, OIDC for cloud, secrets manager injection,
-  rate-limit, RLS multi-tenant, prompt-injection defence
+SoftCo is pre-configured with industry-standard tech stack templates to accelerate development:
 
-## Layout
+* **Frontend Frameworks**: React + Vite, Next.js (App Router), Vue, Svelte, React Native (Expo)
+* **Backend Frameworks**: FastAPI (Python), Go + Gin, NestJS (Node), Express, Hono, Django, Flask
+* **AI & LLM Integration**: Anthropic Claude, OpenAI GPT, Google Gemini, AWS Bedrock, GCP Vertex AI, Groq, Together AI, Ollama; LangChain, LangGraph, CrewAI, Haystack, Model Context Protocol (MCP); RAG + agentic loops + structured JSON outputs + prompt versioning
+* **Databases & Vector Stores**: PostgreSQL + pgvector (default), MySQL, MongoDB, DynamoDB, Redis Cache, Qdrant, Pinecone, Weaviate, Neo4j, OpenSearch
+* **Infrastructure (IaC)**: Terraform-first (modular architecture); AWS, GCP, Azure, DigitalOcean, Fly.io, Render; Docker multi-stage builds; Kubernetes orchestration
+* **CI/CD Automation**: GitHub Actions standard workflows (Python / Node / Go templates); OIDC authentication; Trivy security vulnerability scanning; Release Please auto-changelogs
+* **Observability & Logging**: OpenTelemetry instrumentation, structured JSON logging (structlog, pino, slog), Prometheus + Grafana metrics, Sentry error tracking, Langfuse for LLM evaluation
+* **Security Standards**: OWASP Top 10 defaults, OIDC for cloud authentication, Secrets Manager integration, API Rate-Limiting, PostgreSQL RLS multi-tenancy, Prompt-Injection defenses
+
+## 📂 Repository Architecture & File Layout
 
 ```
-skill/                              # skill source (symlinked to agent paths)
-├── SKILL.md                        # entry point loaded by all agents
-├── references/
-│   ├── 00-workflow.md              # phase-by-phase workflow
-│   ├── 01-frontend.md
-│   ├── 02-backend.md
-│   ├── 03-ai-integration.md
-│   ├── 04-databases.md
-│   ├── 05-infrastructure.md
-│   ├── 06-cicd.md
-│   ├── 07-security.md
-│   ├── 08-observability.md
-│   ├── 09-testing.md
-│   ├── 10-prompt-engineering.md
-│   └── 11-doc-templates.md
-├── scripts/
-│   ├── scaffold.sh                 # bootstrap a project skeleton
-│   ├── validate_env.py             # check .env matches .env.example
-│   ├── gen_schema.py               # SQLAlchemy → docs/DB_SCHEMA.md
-│   └── cost_estimate.py            # rough monthly cloud + LLM cost
-└── assets/
-    ├── github-actions-templates/   # ci-{python,node,go}.yml, deploy-ecs, terraform-plan, release-please
-    ├── terraform-modules/          # network-aws, ecs-service-aws, rds-postgres-aws
-    └── docker-templates/           # Dockerfile.{fastapi,go,nextjs,nestjs}, .dockerignore
-
-# Agent adapters (Cursor/Windsurf/Cline/Copilot/Codex read these directly)
-.cursor/rules/softco.mdc
-.windsurf/rules/softco.md
-.clinerules/softco.md
-.codex/hooks.json
-.github/copilot-instructions.md
-agents/openai.yaml
-AGENTS.md                           # Codex / Amp / Goose — @./skill/SKILL.md
-GEMINI.md                           # Gemini CLI — @./skill/SKILL.md
+skill/                              # custom skill source directory (symlinked to agent paths)
+├── SKILL.md                        # core entry point loaded by AI agents
+├── references/                     # detailed technical guides
+│   ├── 00-workflow.md              # phase-by-phase development workflow
+│   ├── 01-frontend.md              # React/Next.js/SPA/SSR best practices
+│   ├── 02-backend.md               # FastAPI/Go/Node API design patterns
+│   ├── 03-ai-integration.md        # RAG, LLM orchestration & prompt engineering
+│   ├── 04-databases.md             # SQL/NoSQL schema design & optimization
+│   ├── 05-infrastructure.md        # AWS/GCP cloud setup with Terraform
+│   ├── 06-cicd.md                  # GitHub Actions workflow pipelines
+│   ├── 07-security.md              # OWASP compliance & secret management
+│   ├── 08-observability.md         # OpenTelemetry, logging & APM metrics
+│   ├── 09-testing.md               # Unit, integration, E2E, & AI testing
+│   ├── 10-prompt-engineering.md    # Prompt optimization & version control
+│   └── 11-doc-templates.md         # Markdown document templates
+├── scripts/                        # helper automation scripts
+│   ├── scaffold.sh                 # bootstraps standard project skeleton
+│   ├── validate_env.py             # validates .env variables against .env.example
+│   ├── gen_schema.py               # compiles SQLAlchemy models to DB_SCHEMA.md
+│   └── cost_estimate.py            # calculates rough monthly cloud + LLM cost
+└── assets/                         # pre-packaged templates
+    ├── github-actions-templates/   # CI/CD pipelines (ci-python.yml, deploy-ecs, etc.)
+    ├── terraform-modules/          # modular cloud infra (network, ECS, RDS)
+    └── docker-templates/           # optimized multi-stage Dockerfiles
 ```
 
-## Usage
+### Editor & Agent Adapters (Read directly by specific assistants)
+* **Cursor rules**: `.cursor/rules/softco.mdc`
+* **Windsurf rules**: `.windsurf/rules/softco.md`
+* **Cline custom rules**: `.clinerules/softco.md`
+* **OpenAI Codex hooks**: `.codex/hooks.json`
+* **GitHub Copilot instructions**: `.github/copilot-instructions.md`
+* **Agent configs**: `agents/openai.yaml`, [AGENTS.md](file:///Users/shahriar/Desktop/github/softco/AGENTS.md), [GEMINI.md](file:///Users/shahriar/Desktop/github/softco/GEMINI.md)
 
-Inside any supported agent session:
+## 💡 Example Usage & Workflows
 
+Run prompts like these inside any supported agent workspace session:
+
+### Greenfield Project
 ```
 > build me a small SaaS for tracking gym workouts, with AI workout suggestions
 ```
+*The agent detects intent, loads the SoftCo skill, and starts at Phase 0 (Discovery). Answer the interactive questions, approve the TDR architecture plan, watch the documentation land, and review the test-driven code modules.*
 
-The agent detects intent, loads SoftCo, and starts at Phase 0. From there:
-answer the interview, approve the TDR, watch docs land, watch modules land
-test-first, and only ever edit `.env`.
-
-For an existing repo:
-
+### Repository Audit
 ```
 > audit this repo and tell me what's missing for production readiness
 ```
+*SoftCo parses the existing project, maps the architecture, and outputs a complete remediation plan (`docs/AUDIT.md`) scoring test coverage, security vulnerabilities, CI/CD pipelines, and documentation gaps.*
 
-For a focused task:
-
+### Scoped Feature Extensions
 ```
 > add password reset to my FastAPI app
 ```
+*SoftCo updates `docs/MODULES.md` and related specs, writes failing tests first, implements the logic, verifies the tests pass, and details the changes in the changelog.*
 
-## What it never does
+## 🚫 Prohibited Actions & Strict Guardrails
 
-- Hardcodes secrets, even in examples
-- `SELECT *` in production code
-- Skips the documentation phase
-- Pushes to `main` without CI passing
-- Implements auth from scratch when a proven library exists
-- Deploys without a health check
-- Generates `.env` with real credentials (always `.env.example`)
-- Uses `any` in production TypeScript
+SoftCo strictly adheres to enterprise-grade engineering principles and **never**:
+* Hardcodes API keys, secrets, or passwords (always uses Secrets Manager or `.env.example`).
+* Runs unoptimized or dangerous database queries (e.g., `SELECT *` in production schemas).
+* Skips the documentation first phase (SDLC rigor is always enforced).
+* Merges to the `main` branch without passing linting, formatting, and test suites.
+* Implements authentication from scratch when proven libraries exist (Clerk, NextAuth, Supabase).
+* Deploys services without active health check and readiness probe endpoints.
+* Generates `.env` files with plaintext production credentials.
+* Allows un-typed or dangerous types (like `any` in TypeScript) in production code.
 
-## License
+## 📄 License
 
-MIT
+This project is licensed under the [MIT License](file:///Users/shahriar/Desktop/github/softco/LICENSE) — see the LICENSE file for details.
+
