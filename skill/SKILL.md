@@ -42,14 +42,29 @@ deploys. User only edits `.env`.
 ## 1. The SoftCo Method (mandatory phase order)
 
 ```
-PHASE 0 → PHASE 1 → PHASE 2 → PHASE 3 → PHASE 4 → PHASE 5 → PHASE 6
-Discovery  Design    Docs      Code      Test      Infra     Deploy
+PHASE 0 → PHASE 1 → (1.5) → PHASE 2 → PHASE 3 → PHASE 4 → PHASE 5 → PHASE 6
+Discovery Architect  Design   Docs      Code     Test     Infra     Deploy
+                    (UI only)
 ```
 
 **Never skip a phase.** Never start coding (Phase 3) before docs exist
 (Phase 2). Never write a function without its test (Phase 4 runs alongside 3).
+Phase 1.5 (Design) runs only for products with a UI; skip for API / CLI /
+library / infra-only.
 
 Full phase detail: `references/00-workflow.md`.
+
+### Why the method — the four failure modes it prevents
+
+AI coding fails in four predictable ways (Karpathy). The method exists to block
+each — name them when explaining SoftCo's discipline:
+
+| Failure mode | SoftCo guard |
+| ------------ | ------------ |
+| 1. Wrong assumptions baked in silently | Phase 0 interview + Requirements Summary sign-off surface them before code |
+| 2. Over-complexity / unnecessary code | TDR trade-offs, ≤50-line functions, code review flags it |
+| 3. Orthogonal edits during a task hide the real change | Fix-mode declared edit scope, module-at-a-time, no drive-by refactors (§16) |
+| 4. Imperative "hope it works" over verified | test-first + the verification gate prove it runs, not just compiles (§7, `12-verification.md`) |
 
 ---
 
@@ -69,6 +84,35 @@ Read the user's first prompt and classify intent:
 
 State the detected mode in one sentence before doing anything else. Load
 `references/00-workflow.md`.
+
+**Recall first (existing-repo modes).** Before Audit / Extend / Fix / AI-add /
+Infra-only on a repo SoftCo has touched before, read `AGENT.md` and
+`docs/PROGRESS.md` *first* — they are SoftCo's cross-session memory. They tell
+you the architecture, current status, known gotchas, and where the last session
+stopped, so you continue instead of re-deriving. See §14.
+
+### Direct stage invocation (composable)
+
+SoftCo runs the full pipeline by default, but the user can jump to or rerun a
+single stage — treat the whole method as composable, not all-or-nothing. Map the
+request to one entry and run just that, reading the relevant docs (recall) first:
+
+| User says | Run only |
+| --------- | -------- |
+| "just plan the stack" / "give me a TDR" | Phase 1 → stop at TDR |
+| "design the UI" / "pick a look" | Phase 1.5 → `DESIGN.md` (`13-design.md`) |
+| "write the docs" / "doc this repo" | Phase 2 doc package |
+| "build module X" / "implement Y" | one Phase 3 module loop + verification gate |
+| "test this" / "add coverage" | Phase 4 (`09-testing.md` + verification gate) |
+| "review" / "audit" / "is this safe" | Code Review Mode (§15) |
+| "verify this works" / "prove it runs" | verification gate (`12-verification.md`) |
+| "dockerize" / "terraform" / "set up infra" | Phase 5 |
+| "set up CI" / "ship it" / "deploy" | Phase 6 |
+| "fix this bug" | Fix Mode (§16) |
+
+Re-running a stage on a mature repo: recall (`AGENT.md` + `PROGRESS.md`), do the
+one stage, update those docs + `CHANGELOG.md`, stop. Do not silently re-run
+upstream phases the user did not ask for.
 
 ---
 
@@ -140,6 +184,7 @@ Generate **before any source code**:
 docs/
 ├── README.md           # Project overview, setup, usage
 ├── AGENT.md            # AI agent operation (always include, even if no LLM)
+├── DESIGN.md           # UI direction, tokens, components (UI products only)
 ├── ARCHITECTURE.md     # System diagram, components, data flow
 ├── API.md              # Endpoints, request/response schemas
 ├── DB_SCHEMA.md        # Tables/collections, relationships, indexes
@@ -155,6 +200,12 @@ Templates: load `references/11-doc-templates.md`.
 `README.md` and `AGENT.md` are the agent's working memory — written so a senior
 dev (or future Claude session) reading them cold has zero ambiguity.
 
+**UI products only — Phase 1.5 Design first.** If the product has a user-facing
+surface, run the design phase *before* this doc package: pick a UI direction
+(offer 2–3), set design tokens, list the component inventory, spec key screens
+with all states. Output `docs/DESIGN.md` + token config the frontend consumes.
+Load `references/13-design.md`. Skip for APIs / CLIs / libraries / infra-only.
+
 ---
 
 ## 6. Phase 3 — Module-by-Module Build
@@ -166,9 +217,13 @@ Rules:
 2. For each module: **write tests first → write impl → run tests → ensure
    pass**.
 3. Never build two modules in parallel without explicit user request.
-4. After each module: present a diff summary, run lint + tests, ask
-   "Module X done. Ready for next?"
+4. After each module: present a diff summary, run lint + tests, **clear the
+   verification gate (§7) and show evidence**, then ask "Module X done. Ready
+   for next?"
 5. Track in `docs/PROGRESS.md` kanban — Todo / In Progress / Done.
+6. Frontend modules consume `docs/DESIGN.md` + token config — no hardcoded
+   colors/spacing, no off-inventory component variants, every screen ships
+   loading / empty / error / populated states (`references/13-design.md`).
 
 ---
 
@@ -181,6 +236,12 @@ Rules:
   `references/10-prompt-engineering.md`)
 - Coverage **≥ 80% enforced via CI**
 - Zero function without a test
+
+**Verification gate** — green tests are not enough. Before claiming any module
+done, *run the system and observe it*: boot it, hit the real endpoint / drive
+the real UI, check the DB side effect, capture evidence. Minimum proof to claim
+a module done is L3 (behavior observed against the running system); L4 (browser
+flow + screenshot) for user-facing features. Load `references/12-verification.md`.
 
 Patterns per stack: load `references/09-testing.md`.
 
@@ -222,6 +283,7 @@ Templates: `assets/github-actions-templates/`. Patterns:
 | Situation                            | Load                                              |
 | ------------------------------------ | ------------------------------------------------- |
 | Any new project / audit              | `00-workflow.md`                                  |
+| UI product (before frontend code)    | `13-design.md`                                    |
 | Frontend code                        | `01-frontend.md`                                  |
 | Backend code                         | `02-backend.md`                                   |
 | Any AI feature                       | `03-ai-integration.md` + `10-prompt-engineering.md` |
@@ -231,6 +293,7 @@ Templates: `assets/github-actions-templates/`. Patterns:
 | Auth / security review               | `07-security.md`                                  |
 | Logging / metrics / tracing          | `08-observability.md`                             |
 | Writing tests                        | `09-testing.md`                                   |
+| Proving a feature/module runs        | `12-verification.md`                              |
 | Doc generation                       | `11-doc-templates.md`                             |
 
 ---
@@ -318,6 +381,24 @@ sections:
 
 Update at end of every phase. Treat as source of truth.
 
+### Recall protocol (file-based memory — SoftCo's zero-dep persistence)
+
+`AGENT.md` + `docs/PROGRESS.md` *are* SoftCo's memory across sessions and
+agents. No external DB, no service — the memory travels inside the repo and any
+agent (future Claude, Cursor, a teammate) can read it cold.
+
+- **On re-entry** (any existing-repo mode): read both before acting. If they are
+  stale or missing, reconstruct them from the code as step one, then proceed.
+- **During work**: keep `PROGRESS.md` a live kanban — Todo / In Progress / Done
+  per module — and update `AGENT.md` "Current status" at the end of every module
+  and phase, not just at the end.
+- **What to persist**: decisions and their *why*, gotchas discovered, anything a
+  fresh session would otherwise re-learn the hard way. Do not persist what the
+  code already says.
+- **Handoff test**: a new session reading `AGENT.md` + `PROGRESS.md` should be
+  able to take the next action with zero questions. If it could not, the memory
+  is incomplete — fix it before stopping.
+
 ---
 
 ## 15. Code Review Mode
@@ -344,18 +425,44 @@ Each finding:
 
 For security focus, load `references/07-security.md`.
 
+### Independent second opinion (high-stakes reviews)
+
+For auth / payment / data-migration code, pre-release audits, or whenever the
+user asks for rigour, get a *fresh-context* review instead of trusting one pass:
+
+- **On Claude Code** (or any agent with a subagent tool): spawn a subagent
+  (`Agent`, `subagent_type: general-purpose` or `Explore`) pointed at the diff
+  or files, with a clean brief ("review for correctness + security bugs, no
+  context from the author"). It re-derives without your assumptions and catches
+  what you anchored past. Reconcile its findings with yours; report agreements
+  as high-confidence and disagreements explicitly.
+- **No subagent available**: do a deliberate second pass with a different lens
+  (re-read as an attacker, then as the on-call engineer at 3am), or invoke a
+  cross-model reviewer the user has (e.g. Codex) and merge findings.
+
+This is SoftCo's zero-dep stand-in for a separate reviewer — one model reviewing
+its own work misses its own blind spots; a second independent pass does not.
+
 ---
 
 ## 16. Fix Mode
 
 When user says "fix bug" / "this error" / "failing test":
 
-1. Reproduce — read the failing test, error trace, or steps
+1. Reproduce — read the failing test, error trace, or steps; **run it and watch
+   it fail** before touching code
 2. Root cause — name it explicitly (don't symptom-patch)
-3. Fix — minimum diff that addresses root cause
-4. Test — add/update test that would have caught this
-5. Verify — run lint + tests
-6. Report — diff summary + root cause + test name
+3. **Declare scope** — state the file(s) the fix will touch, then stay inside
+   that set. No drive-by refactors, renames, reformatting, or "while I'm here"
+   edits to unrelated files during a debug. Orthogonal changes hide the fix in
+   noise and cause new regressions (Karpathy failure mode #3). If the fix
+   genuinely needs to grow the file set, say so and why before expanding.
+4. Fix — minimum diff that addresses root cause, within the declared scope
+5. Test — add/update test that would have caught this
+6. Verify — run lint + tests, **and re-run the original failing scenario against
+   the running system** (it must now pass — not just a new green unit test).
+   See `references/12-verification.md`.
+7. Report — diff summary + root cause + test name + scope touched
 
 ---
 
@@ -392,7 +499,9 @@ Always justify in the TDR. Always offer to switch if user has reason.
 - Use `TodoWrite` to track phases and modules
 - Mark task complete immediately after finishing
 - Confirm before destructive ops (delete files, drop tables, force-push)
-- Run dev server / tests before claiming a feature works
+- Run dev server / tests before claiming a feature works — clear the
+  verification gate (`references/12-verification.md`) and show evidence; never
+  imply a run that did not happen
 - Update `AGENT.md` + `CHANGELOG.md` at end of every phase
 - Commit at end of every module with a clean conventional-commit message
 
@@ -432,6 +541,8 @@ A SoftCo delivery is done when:
 - [ ] User's only file edit is `.env` from `.env.example`
 - [ ] `docker compose up` (or `make dev`) brings the whole stack up locally
 - [ ] All tests pass first run
+- [ ] Every feature was *run and observed* working (verification evidence shown,
+      not just green tests)
 - [ ] CI is green on first push
 - [ ] `AGENT.md` lets a fresh session continue without questions
 - [ ] No secrets in the repo

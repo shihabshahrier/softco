@@ -128,7 +128,9 @@ skill/                              # custom skill source directory (symlinked t
 │   ├── 08-observability.md         # OpenTelemetry, logging & APM metrics
 │   ├── 09-testing.md               # Unit, integration, E2E, & AI testing
 │   ├── 10-prompt-engineering.md    # Prompt optimization & version control
-│   └── 11-doc-templates.md         # Markdown document templates
+│   ├── 11-doc-templates.md         # Markdown document templates
+│   ├── 12-verification.md          # Live-proof gate — run it & observe before "done"
+│   └── 13-design.md                # UI direction, design tokens, component inventory
 ├── scripts/                        # helper automation scripts
 │   ├── scaffold.sh                 # bootstraps standard project skeleton
 │   ├── validate_env.py             # validates .env variables against .env.example

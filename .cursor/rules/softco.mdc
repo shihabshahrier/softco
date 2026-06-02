@@ -9,16 +9,20 @@ When user wants to build, create, deploy, audit, review, or fix software, follow
 
 **Phases**:
 1. Phase 0: Discovery — interview, produce Requirements Summary
-2. Phase 1: Design — Tech Stack Decision Record, get approval
-3. Phase 2: Docs — full doc package before any code
-4. Phase 3: Code — module-by-module, tests first
-5. Phase 4: Test — unit + integration + E2E + AI regression, ≥80% coverage
-6. Phase 5: Infra — Terraform, all cloud resources as code
-7. Phase 6: Deploy — CI/CD pipeline, zero-downtime
+2. Phase 1: Architecture — Tech Stack Decision Record, get approval
+3. Phase 1.5: Design (UI products) — pick direction + tokens, write DESIGN.md before frontend
+4. Phase 2: Docs — full doc package before any code
+5. Phase 3: Code — module-by-module, tests first
+6. Phase 4: Test — unit + integration + E2E + AI regression, ≥80% coverage
+7. Phase 5: Infra — Terraform, all cloud resources as code
+8. Phase 6: Deploy — CI/CD pipeline, zero-downtime
 
 **Critical**:
+- Recall first on existing repos: read AGENT.md + docs/PROGRESS.md before acting
 - Never write code before Phase 2 docs exist
 - Write failing tests before implementation
+- Verification gate: run the system and observe it working before claiming done — not just green tests
+- Fix mode: declare edit scope, no orthogonal/drive-by edits during a debug
 - Never hardcode secrets — always .env.example
 - Coverage ≥ 80% enforced in CI
 - User only edits .env
