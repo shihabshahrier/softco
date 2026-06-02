@@ -9,6 +9,7 @@ or when re-entering an existing one in audit / fix / extend mode.
 
 - [Phase 0 — Discovery](#phase-0--discovery)
 - [Phase 1 — Architecture & TDR](#phase-1--architecture--tdr)
+- [Phase 1.5 — Design (UI products only)](#phase-15--design-ui-products-only)
 - [Phase 2 — Documentation First](#phase-2--documentation-first)
 - [Phase 3 — Module-by-Module Build](#phase-3--module-by-module-build)
 - [Phase 4 — Testing](#phase-4--testing-runs-alongside-phase-3)
@@ -145,6 +146,28 @@ Halt. Wait for approval.
 
 ---
 
+## Phase 1.5 — Design (UI products only)
+
+Run only if the product has a user-facing surface. Skip for API / CLI / library
+/ infra-only. Fast — one or two turns.
+
+1. **Direction**: offer 2–3 named UI directions (feel + reference + trade-off);
+   user picks or blends. Lock it.
+2. **Tokens**: concrete color / type / spacing / radius / shadow / motion values,
+   emitted as the actual Tailwind theme or `:root` variables.
+3. **Components**: inventory mapped to the library (default shadcn/ui); one
+   source per component.
+4. **Key screens**: 3–5 critical screens sketched with all states — loading,
+   empty, error, populated.
+
+Output `docs/DESIGN.md` + the token config. Load `references/13-design.md`.
+This gates Phase 3 frontend: components reference tokens only, every screen
+ships all four states.
+
+Halt. Wait for direction sign-off before Phase 2.
+
+---
+
 ## Phase 2 — Documentation First
 
 **Rule**: not a single `.py` / `.ts` / `.go` file until docs exist.
@@ -153,7 +176,8 @@ Order of creation:
 
 1. `README.md` — what, why, quickstart
 2. `AGENT.md` — single source of truth (see `SKILL.md §14`)
-3. `ARCHITECTURE.md` — diagram, components, data flow
+3. `DESIGN.md` — UI direction, tokens, components (UI products only; from Phase 1.5)
+4. `ARCHITECTURE.md` — diagram, components, data flow
 4. `DB_SCHEMA.md` — entity tables, columns, types, indexes, FKs
 5. `API.md` — every endpoint: method, path, auth, req schema, res schema,
    error codes
@@ -186,7 +210,9 @@ Commit at end of Phase 2 with `docs: initial documentation package`.
 4. **Edge layer**: HTTP/CLI handlers
 5. **Cross-cutting**: auth middleware, rate limit, CORS
 6. **AI features last** (depend on data + domain)
-7. **Frontend after API contract is stable** (or parallel with mock server)
+7. **Frontend after API contract is stable** (or parallel with mock server) —
+   consumes `docs/DESIGN.md` tokens + component inventory; every screen ships
+   loading / empty / error / populated states (`references/13-design.md`)
 
 ### Per-module loop
 
@@ -197,12 +223,14 @@ for module in modules:
     3. Implement minimum code to pass (green)
     4. Refactor (still green)
     5. Run lint + type-check + tests
-    6. Update AGENT.md "Current status"
-    7. Commit: feat(<scope>): <module name>
-    8. Present diff summary, ask "next?"
+    6. Verification gate — run it, observe it, capture evidence (see Phase 4)
+    7. Update AGENT.md "Current status"
+    8. Commit: feat(<scope>): <module name>
+    9. Present diff summary + verification evidence, ask "next?"
 ```
 
-Never combine modules. Never skip the failing-test step.
+Never combine modules. Never skip the failing-test step. Never claim a module
+done without clearing the verification gate.
 
 ---
 
@@ -229,6 +257,24 @@ CI enforces ≥ 80% line coverage. Block merge below threshold.
 - Cost regression: track tokens per test run
 
 Load `references/09-testing.md` and `references/10-prompt-engineering.md`.
+
+### Verification gate (before claiming any module done)
+
+Green tests prove the code; they do not prove the running system. Boot it, hit
+it, observe it, capture evidence:
+
+```
+[ ] lint + type-check clean
+[ ] unit + integration green (report pass count + coverage)
+[ ] process boots clean (/health → 200)
+[ ] new capability exercised against the running system (L3+; L4 browser for UI)
+[ ] side effect confirmed (DB row / file / queue), not just the HTTP echo
+[ ] evidence shown to user (decisive response / screenshot / row)
+```
+
+Minimum to claim a module done: L3. User-facing feature: L4. Load
+`references/12-verification.md` for the level ladder, run commands, and the
+per-mode proof table.
 
 ---
 
@@ -302,6 +348,9 @@ Always: health-check gate, automatic rollback on failure.
 
 When user says "review / audit / improve this":
 
+0. **Recall**: if `AGENT.md` / `docs/PROGRESS.md` exist, read them first — they
+   are SoftCo's memory of this repo (status, decisions, gotchas). Continue from
+   them rather than re-deriving. (SKILL.md §14 recall protocol.)
 1. **Map the repo**: read top-level files, `package.json` / `pyproject.toml` /
    `go.mod`, list services and modules
 2. **Read docs that exist**: `README`, any `ARCHITECTURE` / `AGENT`
@@ -339,14 +388,18 @@ When user says "review / audit / improve this":
 
 ## Fix Mode
 
-1. Reproduce — run failing test or steps locally
+1. Reproduce — run failing test or steps locally; watch it fail
 2. Identify root cause; name it (not "race condition somewhere" — name file +
    line + invariant violated)
-3. Write a failing test that captures the bug
-4. Minimum-diff fix
-5. Test passes
-6. Add regression note in `CHANGELOG.md`
-7. Commit `fix(<scope>): <one-line>` with body explaining root cause
+3. Declare edit scope — list the files the fix will touch and stay inside them.
+   No orthogonal refactors/renames/reformatting during the debug; expand the set
+   only with an explicit reason (SKILL.md §16, Karpathy failure mode #3)
+4. Write a failing test that captures the bug
+5. Minimum-diff fix, within the declared scope
+6. Test passes **and** the original failing scenario now passes against the
+   running system (`references/12-verification.md`)
+7. Add regression note in `CHANGELOG.md`
+8. Commit `fix(<scope>): <one-line>` with body explaining root cause
 
 ---
 
@@ -354,6 +407,8 @@ When user says "review / audit / improve this":
 
 For "add feature X to existing app":
 
+0. Recall: read `AGENT.md` + `docs/PROGRESS.md` first (SKILL.md §14) — know the
+   current architecture and status before scoping.
 1. Scope: 30-second mini Phase 0 (one question batch if needed)
 2. Update `docs/MODULES.md` with new module
 3. Update `docs/ARCHITECTURE.md` if shape changes
