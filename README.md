@@ -190,4 +190,4 @@ This project is licensed under the [MIT License](file:///Users/shahriar/Desktop/
 
 ---
 
-📖 **Project page:** https://shihub.online/projects/softco
+📖 **Project page:** https://shihub.site/projects/softco
