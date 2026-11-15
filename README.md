@@ -1,28 +1,27 @@
-# SoftCo — Autonomous AI Coding Agent & Software Company Skill
+# SoftCo: a software company skill for AI coding agents
 
 [![GitHub stars](https://img.shields.io/github/stars/shihabshahrier/softco.svg)](https://github.com/shihabshahrier/softco/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Supported AI Agents](https://img.shields.io/badge/AI_Agents-Claude_Code_|_Cursor_|_Windsurf_|_Cline-blue.svg)](#agent-support)
 
-Turn any AI coding agent (Claude Code, Cursor, Windsurf, Cline) into a complete, autonomous software company. The user describes their product or software idea; **SoftCo** handles the entire lifecycle: planning, system design, documentation, test-first coding, DevOps containerization, continuous integration, and automated deployment. The user only ever needs to configure the `.env` file.
+SoftCo is an agent skill that makes an AI coding agent (Claude Code, Cursor, Windsurf, Cline and others) run a project the way a small software company would. You describe the product. The agent plans it, designs it, writes the documentation and the tests, then the code, the containers, the CI and the deployment. Your part is the `.env` file.
 
-## 🚀 What it is
+## What it is
 
-An **Agent Skill** (supporting [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills)) that transforms any supported large language model (LLM) agent or developer assistant into a fully-functional, autonomous software engineering firm. It simulates an entire development team: Product Manager, Software Architect, Senior Engineer, DevOps Engineer, QA Engineer, Security Expert, and Technical Writer. 
+An [Agent Skill](https://docs.claude.com/en/docs/claude-code/skills). It gives one agent seven roles to play in turn: product manager, architect, senior engineer, DevOps engineer, QA engineer, security reviewer and technical writer.
 
-The agent operates under a highly-disciplined, professional software development lifecycle (SDLC) phase order:
+The work goes in a fixed order:
 
 ```
 Phase 0 → Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
 Discovery  Design    Docs      Code      Test      Infra     Deploy
 ```
 
-Documentation and tests come before code. Test coverage of ≥ 80% is strictly enforced. Secrets are never committed to git. Every project ships with a standardized `AGENT.md` contract file that lets a fresh agent session continue the work seamlessly without questions.
+Documentation and tests come before code. Test coverage must reach 80%. Secrets never go into git. Every project gets an `AGENT.md` file, so a fresh agent session can pick the work up without asking questions.
 
+## Supported agents
 
-## 🤖 Supported AI Coding Agents & Platforms
-
-SoftCo integrates natively as a custom skill, system prompt instruction, or custom rule system across all major AI coding assistants and agent environments:
+SoftCo installs as a skill, a rules file or a system prompt, depending on the agent:
 
 | Agent / Editor | Works | Install Path / Setup |
 |-------|-------|-------------|
